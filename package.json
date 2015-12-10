@@ -8,10 +8,13 @@
   },
   "keywords": [
     "password",
-    "password",
     "strength",
     "jquery"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neeaagh/strength-indicator"
+  },
   "author": "Joe Giancaspro",
   "license": "ISC",
   "devDependencies": {
