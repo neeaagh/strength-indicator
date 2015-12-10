@@ -9,7 +9,7 @@ $.fn.strengthIndicator = function(userOptions) {
   var score = 0;
 
   var init = function () {
-
+    
     if (typeof userOptions === 'object') {
       options = $.extend(defaults, userOptions);
     }
@@ -17,7 +17,7 @@ $.fn.strengthIndicator = function(userOptions) {
       options = defaults;
     }
     console.log(options);
-
+    
     initView();
   };
 
@@ -40,7 +40,7 @@ $.fn.strengthIndicator = function(userOptions) {
   });
 
   init();
-  return this;
+  return this; 
 };
 
 

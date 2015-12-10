@@ -29,11 +29,18 @@ module.exports = function(grunt) {
           'dist/<%= pkg.name %>.min.js': ['src/<%= pkg.name %>.js', 'src/rules.js']
         }
       }
+    },
+    watch: {
+      scripts: {
+        files: ['src/*.js'],
+        tasks: ['default']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   grunt.registerTask('default', ['concat', 'uglify']);
