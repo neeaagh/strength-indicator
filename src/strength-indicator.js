@@ -1,7 +1,7 @@
 $.fn.strengthIndicator = function(userOptions) {
   var self = this;
   var defaults = {
-    passingScore: 0
+    passingScore: 15
   };
   var options = {};
   var score = 0;
@@ -31,6 +31,11 @@ $.fn.strengthIndicator = function(userOptions) {
 
   var updateView = function() {
     $('.si-strength-score').html(score);
+    if (score > options.passingScore) {
+      $('.si-strength-score').css('color','#bada55');
+    } else {
+      $('.si-strength-score').css('color', '#000');
+    }
   };
 
   this.on('input propertychange', function() {
