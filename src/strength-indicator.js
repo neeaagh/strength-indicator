@@ -1,4 +1,4 @@
-/*! strength-indicator - v1.0.0 - */
+/* ensure $ is meant for jquery */
 (function ( $ ) {
   $.fn.strengthIndicator = function() {
 
@@ -6,6 +6,7 @@
       console.log("fired!");
     });
 
-    return this;
+    return this; /* allow jquery chaining */
   };
-}( jQuery ));
+}( jQuery )); /* ensure $ is meant for jquery */
+
