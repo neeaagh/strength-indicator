@@ -1,0 +1,21 @@
+{
+  "name": "strength-indicator",
+  "version": "1.0.0",
+  "description": "A simple password strength indicator for jQuery.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "password",
+    "password",
+    "strength",
+    "jquery"
+  ],
+  "author": "Joe Giancaspro",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-uglify": "^0.11.0"
+  }
+}
