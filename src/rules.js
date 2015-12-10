@@ -8,7 +8,7 @@ var ruleEngine = {
     { handler: 'containsSpecialChar', score: 4, active: true }
   ],
 
-  validtion: {},
+  weakPatterns: /(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g,
 
   getScore: function(password) {
     var score = 0;
@@ -24,7 +24,14 @@ var ruleEngine = {
         }
       }
     });
-    return score;
+    console.log(self);
+    return score + ruleEngine.lengthPower(password);
+  },
+
+  lengthPower: function(password) {
+    var trueLength = password.replace(ruleEngine.weakPatterns, '').length;
+    var power = 1.4;
+    return Math.pow(trueLength, power);
   },
 
   minLength: function(password) {
@@ -55,8 +62,8 @@ var ruleEngine = {
   },
 
   badPasswords: function(password){
-    var pw = /(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/;
-    if (pw.test(password)) {
+    if (ruleEngine.weakPatterns.test(password)) {
+      console.log('pattern match');
       return true;
     }
   },
@@ -64,7 +71,6 @@ var ruleEngine = {
   emailMatch: function(password){
     var emailRegex = /^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$/i;
     if (emailRegex.test(password)) {
-      console.log('has email');
       return true;
     }
   }
