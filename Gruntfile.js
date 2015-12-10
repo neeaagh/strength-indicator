@@ -5,8 +5,11 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       options: {
-        stripBanners: true,
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - */'
+        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - */',
+        process: function (src, filepath) {
+          // Remove all block comments
+          return src.replace(/\/\*[\s\S]*?\*\//g, '');
+        }
       },
       dist: {
         src: ['src/<%= pkg.name %>.js'],
@@ -25,10 +28,9 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify', 'concat']);
+  grunt.registerTask('default', ['concat', 'uglify']);
 };
