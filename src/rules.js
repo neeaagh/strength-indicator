@@ -3,9 +3,9 @@ var ruleEngine = {
     { handler: 'minLength', score: 10, active: true },
     { handler: 'containsCaps', score: 2, active: true },
     { handler: 'badPasswords', score: -5, active: true },
-    { handler: 'emailMatch', score: -2, active: true },
-    { handler: 'containsNumber', score: 4, active: true },
-    { handler: 'containsSpecialChar', score: 4, active: true }
+    { handler: 'emailMatch', score: -3, active: true },
+    { handler: 'containsNumber', score: 3.5, active: true },
+    { handler: 'containsSpecialChar', score: 3.5, active: true }
   ],
 
   weakPatterns: /(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g,
@@ -25,17 +25,17 @@ var ruleEngine = {
       }
     });
     console.log(self);
-    return score + ruleEngine.lengthPower(password);
+    return ruleEngine.lengthPower(password, score);
   },
 
-  lengthPower: function(password) {
+  lengthPower: function(password, score) {
     var trueLength = password.replace(ruleEngine.weakPatterns, '').length;
     var power = 1.4;
-    return Math.pow(trueLength, power);
+    return Math.pow(trueLength + score, power);
   },
 
   minLength: function(password) {
-    if (password.length >= 5){
+    if (password.length >= 8){
       return true;
     }
   },
