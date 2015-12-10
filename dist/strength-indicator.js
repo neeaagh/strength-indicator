@@ -6,6 +6,7 @@
       console.log("fired!");
     });
 
-    return this;
+    return this; 
   };
-}( jQuery ));
+}( jQuery )); 
+
