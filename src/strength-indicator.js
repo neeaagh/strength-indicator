@@ -25,7 +25,7 @@ $.fn.strengthIndicator = function(userOptions) {
   };
 
   var getSecurityScore = function(password) {
-    score =  Math.random() * 100 + 1;
+    score = ruleEngine.getScore(password);
     updateView();
   };
 
