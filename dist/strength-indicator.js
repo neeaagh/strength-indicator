@@ -1,0 +1,1 @@
+/*! strength-indicator - v1.0.0 - */
