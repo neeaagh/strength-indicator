@@ -6,6 +6,7 @@ var insideVerticalBar = {
     target.addClass('si-inner-right-padding');
     target.wrap( "<div class='si-pass-wrap'></div>");
     $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(target);
+    // TODO :target reference
     for (var i = 0; i < 4; i++){
       $('.si-vert-container').append('<div id='+i+'></div>');
     }
@@ -35,7 +36,7 @@ var insideVerticalBar = {
       progressBarColor = '#72D24B';
     }
 
-    var indicators = $(this.target).next().children().children();
+    var indicators = this.target.next().children().children();
     indicators.slice(0, highlighted).css('background', '#ddd');
     indicators.slice(highlighted).css('background', progressBarColor);
   }
