@@ -9,11 +9,16 @@ var UIEngine = {
   },
 
   setThemeClass: function(themeName) {
-    var themeClass = defaultTheme;
-    if (themeName === 'horizontal-bar') {
-      themeClass = horizontalBarTheme;
+    switch(themeName){
+    case 'horizontal-bar':
+      this.theme = horizontalBar;
+      break;
+    case 'inside-horizontal':
+      this.theme = insideHorizontalBar;
+      break;
+    default:
+      this.theme = defaultTheme;
     }
-    this.theme = themeClass;
   },
 
   update: function(score) {

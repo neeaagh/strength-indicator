@@ -1,13 +1,15 @@
-var horizontalBar = {
+var insideHorizontalBar = {
   target: null,
 
   init: function(target) {
     this.target = target;
-    $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(target);
+    target.addClass('si-inner-padding');
+    target.wrap( "<div class='si-pass-wrap'></div>");
+    $('<div class="si-pass-strength si-pass-strength-inside"></div>').insertAfter(target);
     for (var i = 0; i < 4; i++){
       $('.si-pass-strength').append('<div></div>');
     }
-      $('.si-pass-strength').width(this.target.outerWidth());
+      $('.si-pass-strength').width(this.target.outerWidth() - 4);
   },
 
   update: function(score) {

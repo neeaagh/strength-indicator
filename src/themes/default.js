@@ -22,6 +22,7 @@ var defaultTheme = {
     if (score >= 100) {
       progressBarColor = '#72D24B';
     }
+    // TODO Use selector from target chain
     $('.si-progress').css('width', score + '%');
     $('.si-progress').css('background', progressBarColor);
   }

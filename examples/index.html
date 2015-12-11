@@ -42,7 +42,7 @@
     .si-pass-wrap {
       position: relative;
     }
-    .si-pass-wrap input[type="password"] {
+    .si-pass-wrap .si-inner-padding {
       padding-bottom: 8px;
     }
     .si-pass-strength.si-pass-strength-inside {
@@ -67,6 +67,7 @@
     $( document ).ready(function() {
       $('.password').strengthIndicator({
         passingScore: 100,
+        ui: { theme: 'inside-horizontal' }
       });
       // $('.pass').strengthIndicator();
     });
