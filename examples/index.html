@@ -3,9 +3,9 @@
 <head>
 	<title>Password Strength Indicator Example</title>
   <style type="text/css">
-  .si-* {
-    box-sizing: border-box;
-  }
+    .si-pass-strength * {
+      box-sizing: border-box;
+    }
     input[type="password"] {
       width: 200px;
       padding: 3px 0;
@@ -101,13 +101,27 @@
     </div>
   </div>
 
+<<<<<<< HEAD
     <div>
+=======
+  <div>
+>>>>>>> c451d6a56896683c862b4519dccdc5b36b50a376
     <h1>Inner Vertical Bar</h1>
     <div>
       <input type="password" class="password-inner-vertical-bar" />
     </div>
   </div>
 
+<<<<<<< HEAD
+=======
+  <div>
+    <h1>Basic Text</h1>
+    <div>
+      <input type="password" class="password-text" />
+    </div>
+  </div>
+
+>>>>>>> c451d6a56896683c862b4519dccdc5b36b50a376
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="../dist/strength-indicator.js"></script>
@@ -128,10 +142,22 @@
         ui: { theme: 'inside-horizontal' }
       });
 
+<<<<<<< HEAD
       $('.password-inner-vertical-bar').strengthIndicator({
         passingScore: 100,
         ui: { theme: 'inside-vertical' }
       });
+=======
+     $('.password-inner-vertical-bar').strengthIndicator({
+        passingScore: 100,
+        ui: { theme: 'inside-vertical' }
+      });
+
+     $('.password-text').strengthIndicator({
+        passingScore: 100,
+        ui: { theme: 'inline-text' }
+      });
+>>>>>>> c451d6a56896683c862b4519dccdc5b36b50a376
     });
   </script>
 </body>

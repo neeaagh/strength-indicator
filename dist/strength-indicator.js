@@ -41,27 +41,14 @@ $.fn.strengthIndicator = function(userOptions) {
 
 var RuleEngine = function() {
 
-  this.rules = [
-    { handler: 'minLength', score: 10, active: true },
-    { handler: 'containsCaps', score: 2, active: true },
-    { handler: 'containsWeakPatterns', score: -5, active: true },
-    { handler: 'containsEmail', score: -3, active: true },
-    { handler: 'containsNumber', score: 3.5, active: true },
-    { handler: 'containsSpecialChar', score: 3.5, active: true }
-  ];
-
-  thisweakPatterns = /(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g;
-
   this.getScore = function(password) {
     var score = 0;
 
     $.each(this.rules, function(index, rule) {
       if (rule.active === true) {
         var funcStr = rule.handler;
-        var func = this[funcStr];
-        console.log(typeof func === "function");
-        if (typeof func === "function") {
-          if (func(password)) {
+        if (typeof rule.handler === "function") {
+          if (rule.handler(password)) {
             score += rule.score;
           }
         }
@@ -71,7 +58,7 @@ var RuleEngine = function() {
   };
 
   this.lengthPower = function(password, score) {
-    var trueLength = password.replace(this.weakPatterns, '').length;
+    var trueLength = password.replace(/(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g, '').length;
     var power = 1.4;
     return Math.pow(trueLength + score, power);
   };
@@ -104,8 +91,7 @@ var RuleEngine = function() {
   };
 
   this.containsWeakPatterns = function(password) {
-    if (this.weakPatterns.test(password)) {
-      console.log('pattern match');
+    if (/(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g.test(password)) {
       return true;
     }
   };
@@ -116,6 +102,15 @@ var RuleEngine = function() {
       return true;
     }
   };
+
+  this.rules = [
+    { handler: this.minLength, score: 10, active: true },
+    { handler: this.containsCaps, score: 2, active: true },
+    { handler: this.containsWeakPatterns, score: -5, active: true },
+    { handler: this.containsEmail, score: -3, active: true },
+    { handler: this.containsNumber, score: 3.5, active: true },
+    { handler: this.containsSpecialChar, score: 3.5, active: true }
+  ];
 };
 
 
@@ -254,11 +249,10 @@ var insideHorizontalBar = {
     target.addClass('si-inner-padding');
     target.wrap( "<div class='si-pass-wrap'></div>");
     $('<div class="si-pass-strength si-pass-strength-inside"></div>').insertAfter(target);
-    // TODO: use target handle
     for (var i = 0; i < 4; i++){
-      $('.si-pass-strength').append('<div></div>');
+      target.next().append('<div></div>');
     }
-    $('.si-pass-strength').width(this.target.outerWidth() - 4);
+    target.next().width(this.target.outerWidth() - 4);
     return this;
   },
 
@@ -299,10 +293,10 @@ var insideVerticalBar = {
     $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(target);
     // TODO :target reference
     for (var i = 0; i < 4; i++){
-      $('.si-vert-container').append('<div id='+i+'></div>');
+      target.next().find('.si-vert-container').append('<div id='+i+'></div>');
     }
-    $('.si-pass-wrap').width(this.target.outerWidth() - 4);
-    $('.si-pass-wrap').height(this.target.outerHeight() - 4);
+    target.parent().width(this.target.outerWidth() - 4);
+    target.parent().height(this.target.outerHeight() - 4);
     return this;
   },
 
