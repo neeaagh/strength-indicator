@@ -3,7 +3,9 @@ var defaultTheme = {
 
   init: function(target) {
     this.target = target;
-    $('<div class="si-strength-score"><div class="si-progress"></div></div>').insertAfter(target);
+    $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(target);
+    //  TODO: make selector from target chain.
+    $('.si-pass-strength').width(this.target.outerWidth());
   },
 
   update: function(score) {

@@ -3,91 +3,71 @@
 <head>
 	<title>Password Strength Indicator Example</title>
   <style type="text/css">
-    body * {
-      box-sizing: border-box;
+    input[type="password"] {
+      width: 200px;
+      padding: 3px 0;
     }
-    .si-strength-score {
+    .si-pass-strength {
+      margin-top: 1px;
+    }
+    .si-pass-strength.si-pass-strength-default {
+      box-sizing: border-box;
       background: #ddd;
       height: 10px;
-      margin-top: 1px;
       position: relative;
       overflow: hidden;
     }
     .si-progress{
       background: #969696;
       width: 0%;
-      height: 5px;
+      height: 10px;
       left: 0;
       position: absolute;
       top: 0;
       transition: width 0.2s ease-out;
     }
-    input[type="password"] {
+    .si-pass-strength.si-pass-strength-horibars div,
+    .si-pass-strength.si-pass-strength-inside div {
       box-sizing: border-box;
-      width: 200px;
-      padding: 3px 0;
-    }
-    .pass-strength {
-      width: 200px;
-      margin-top: 1px;
-    }
-    .pass-strength div {
       width: 25%;
       height: 10px;
       float: left;
       border-right: 1px solid white;
       background: #ddd;
     }
-    .pass-strength div:last-child {
+    .si-pass-strength.si-pass-strength-horibars div:last-child,
+    .si-pass-strength.si-pass-strength-inside div:last-child {
       border-right: none;
     }
-    .pass-wrap {
+    .si-pass-wrap {
       position: relative;
     }
-    .pass-wrap input[type="password"] {
+    .si-pass-wrap input[type="password"] {
       padding-bottom: 8px;
     }
-    .pass-strength.pass-strength-inside {
+    .si-pass-strength.si-pass-strength-inside {
       width: calc(200px - 4px);
       margin:auto;
       position: absolute;
       bottom:2px;
       left: 2px;
     }
-    .pass-strength.pass-strength-inside div {
+    .si-pass-strength.si-pass-strength-inside div {
       height: 3px;
     }
   </style>
 </head>
 <body>
   <input type="password" class="password" />
-  <br><br>
-  <input type="password" class="pass">
-  <div class="pass-strength">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <br><br>
-  <div class="pass-wrap">
-    <input type="password" class="pass">
-    <div class="pass-strength pass-strength-inside">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-
-
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="../dist/strength-indicator.js"></script>
 
   <script type="text/javascript">
     $( document ).ready(function() {
-      $('.password').strengthIndicator({ passingScore: 100 });
+      $('.password').strengthIndicator({
+        passingScore: 100,
+      });
       // $('.pass').strengthIndicator();
     });
   </script>
