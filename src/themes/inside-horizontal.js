@@ -35,7 +35,8 @@ var insideHorizontalBar = {
       progressBarColor = '#72D24B';
     }
 
-    $(this.target).next().children().slice(highlighted, 4).css('background', '#ddd');
-    $(this.target).next().children().slice(0, highlighted).css('background', progressBarColor);
+    var indicators = this.target.next().children();
+    indicators.slice(highlighted, 4).css('background', '#ddd');
+    indicators.slice(0, highlighted).css('background', progressBarColor);
   }
 };
