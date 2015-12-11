@@ -9,6 +9,7 @@ $.fn.strengthIndicator = function(userOptions) {
   var options = {};
   var score = 0;
   var ui = null;
+  var rules = null;
 
   var init = function () {
     /* merge default to options */
@@ -18,12 +19,13 @@ $.fn.strengthIndicator = function(userOptions) {
     else {
       options = defaults;
     }
-    /* render the view */
+
+    rules = new RuleEngine();
     ui = new UIEngine(self, options.ui.theme);
   };
 
   var getSecurityScore = function(password) {
-    score = ruleEngine.getScore(password);
+    score = rules.getScore(password);
     ui.update(score);
   };
 

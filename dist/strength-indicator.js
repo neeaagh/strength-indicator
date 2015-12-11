@@ -11,6 +11,7 @@ $.fn.strengthIndicator = function(userOptions) {
   var options = {};
   var score = 0;
   var ui = null;
+  var rules = null;
 
   var init = function () {
     
@@ -20,12 +21,13 @@ $.fn.strengthIndicator = function(userOptions) {
     else {
       options = defaults;
     }
-    
+
+    rules = new RuleEngine();
     ui = new UIEngine(self, options.ui.theme);
   };
 
   var getSecurityScore = function(password) {
-    score = ruleEngine.getScore(password);
+    score = rules.getScore(password);
     ui.update(score);
   };
 
@@ -37,25 +39,26 @@ $.fn.strengthIndicator = function(userOptions) {
   return this; 
 };
 
-var ruleEngine = {
-  rules: [
+var RuleEngine = function() {
+
+  this.rules = [
     { handler: 'minLength', score: 10, active: true },
     { handler: 'containsCaps', score: 2, active: true },
     { handler: 'containsWeakPatterns', score: -5, active: true },
     { handler: 'containsEmail', score: -3, active: true },
     { handler: 'containsNumber', score: 3.5, active: true },
     { handler: 'containsSpecialChar', score: 3.5, active: true }
-  ],
+  ];
 
-  weakPatterns: /(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g,
+  thisweakPatterns = /(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g;
 
-  getScore: function(password) {
+  this.getScore = function(password) {
     var score = 0;
 
     $.each(this.rules, function(index, rule) {
       if (rule.active === true) {
         var funcStr = rule.handler;
-        var func = ruleEngine[funcStr];
+        var func = this[funcStr];
         if (typeof func === "function") {
           if (func(password)) {
             score += rule.score;
@@ -63,55 +66,55 @@ var ruleEngine = {
         }
       }
     });
-    return ruleEngine.lengthPower(password, score);
-  },
+    return this.lengthPower(password, score);
+  };
 
-  lengthPower: function(password, score) {
-    var trueLength = password.replace(ruleEngine.weakPatterns, '').length;
+  this.lengthPower = function(password, score) {
+    var trueLength = password.replace(this.weakPatterns, '').length;
     var power = 1.4;
     return Math.pow(trueLength + score, power);
-  },
+  };
 
-  minLength: function(password) {
+  this.minLength = function(password) {
     if (password.length >= 8) {
       return true;
     }
-  },
+  };
 
-  containsCaps: function(password) {
+  this.containsCaps = function(password) {
     var regex = /[A-Z]/;
     if (regex.test(password)) {
       return true;
     }
-  },
+  };
 
-  containsSpecialChar: function(password) {
+  this.containsSpecialChar = function(password) {
     var regex = /[!,@,#,$,%,\^,&,*,?,_,~]/;
     if (regex.test(password)) {
       return true;
     }
-  },
+  };
 
-  containsNumber: function(password) {
+  this.containsNumber = function(password) {
     var regex = /[0-9]/;
     if (regex.test(password)) {
       return true;
     }
-  },
+  };
 
-  containsWeakPatterns: function(password) {
-    if (ruleEngine.weakPatterns.test(password)) {
+  this.containsWeakPatterns = function(password) {
+    if (this.weakPatterns.test(password)) {
       console.log('pattern match');
       return true;
     }
-  },
+  };
 
-  containsEmail: function(password) {
+  this.containsEmail = function(password) {
     var emailRegex = /^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$/i;
     if (emailRegex.test(password)) {
       return true;
     }
-  }
+  };
 };
 
 
