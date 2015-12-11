@@ -7,6 +7,7 @@ $.fn.strengthIndicator = function(userOptions) {
   };
   var options = {};
   var score = 0;
+  var ui = strengthIndicatorUI;
 
   var init = function () {
     
@@ -18,36 +19,12 @@ $.fn.strengthIndicator = function(userOptions) {
     }
     console.log(options);
     
-    initView();
-  };
-
-  var initView = function() {
-    $('<div class="si-strength-score"><div class="si-progress"></div></div>').insertAfter(self);
-    $('.si-strength-score').css('width', self.outerWidth());
-    updateView();
+    ui.initView(self);
   };
 
   var getSecurityScore = function(password) {
     score = ruleEngine.getScore(password);
-    updateView();
-  };
-
-  var updateView = function() {
-    var progressBarColor = '#969696';
-    if (score >= 25) {
-      progressBarColor = '#DA5555';
-    }
-    if (score >= 50) {
-      progressBarColor = '#F7CB4D';
-    }
-    if (score >= 75) {
-      progressBarColor = '#F7F24D';
-    }
-    if (score >= 100) {
-      progressBarColor = '#72D24B';
-    }
-    $('.si-progress').css('width', score + '%');
-    $('.si-progress').css('background', progressBarColor);
+    ui.updateView(score);
   };
 
   this.on('input propertychange', function() {
@@ -136,4 +113,33 @@ var ruleEngine = {
   }
 };
 
+
+var strengthIndicatorUI = {
+  target: null,
+
+  initView: function(target) {
+    this.target = target;
+    $('<div class="si-strength-score"><div class="si-progress"></div></div>').insertAfter(target);
+    $('.si-strength-score').css('width', target.outerWidth());
+    this.updateView();
+  },
+
+  updateView: function(score) {
+    var progressBarColor = '#969696';
+    if (score >= 25) {
+      progressBarColor = '#DA5555';
+    }
+    if (score >= 50) {
+      progressBarColor = '#F7CB4D';
+    }
+    if (score >= 75) {
+      progressBarColor = '#F7F24D';
+    }
+    if (score >= 100) {
+      progressBarColor = '#72D24B';
+    }
+    $('.si-progress').css('width', score + '%');
+    $('.si-progress').css('background', progressBarColor);
+  }
+};
 }(jQuery));

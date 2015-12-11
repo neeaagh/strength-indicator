@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         }
       },
       dist: {
-        src: ['src/<%= pkg.name %>.js', 'src/rules.js'],
+        src: ['src/<%= pkg.name %>.js', 'src/rules.js', 'src/ui.js'],
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
       },
       my_target: {
         files: {
-          'dist/<%= pkg.name %>.min.js': ['src/<%= pkg.name %>.js', 'src/rules.js']
+          'dist/<%= pkg.name %>.min.js': ['src/<%= pkg.name %>.js', 'src/rules.js', 'src/ui.js']
         }
       }
     },
