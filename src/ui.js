@@ -16,6 +16,9 @@ var UIEngine = {
     case 'inside-horizontal':
       this.theme = insideHorizontalBar;
       break;
+    case 'inside-vertical':
+      this.theme = insideVerticalBar;
+      break;
     default:
       this.theme = defaultTheme;
     }
