@@ -2,8 +2,8 @@ var ruleEngine = {
   rules: [
     { handler: 'minLength', score: 10, active: true },
     { handler: 'containsCaps', score: 2, active: true },
-    { handler: 'badPasswords', score: -5, active: true },
-    { handler: 'emailMatch', score: -3, active: true },
+    { handler: 'containsWeakPatterns', score: -5, active: true },
+    { handler: 'containsEmail', score: -3, active: true },
     { handler: 'containsNumber', score: 3.5, active: true },
     { handler: 'containsSpecialChar', score: 3.5, active: true }
   ],
@@ -14,7 +14,7 @@ var ruleEngine = {
     var score = 0;
 
     $.each(this.rules, function(index, rule) {
-      if (rule.active == true) {
+      if (rule.active === true) {
         var funcStr = rule.handler;
         var func = ruleEngine[funcStr];
         if (typeof func === "function") {
@@ -24,7 +24,6 @@ var ruleEngine = {
         }
       }
     });
-    console.log(self);
     return ruleEngine.lengthPower(password, score);
   },
 
@@ -35,40 +34,40 @@ var ruleEngine = {
   },
 
   minLength: function(password) {
-    if (password.length >= 8){
+    if (password.length >= 8) {
       return true;
     }
   },
 
   containsCaps: function(password) {
     var regex = /[A-Z]/;
-    if (regex.test(password)){
+    if (regex.test(password)) {
       return true;
     }
   },
 
-  containsSpecialChar: function(password){
+  containsSpecialChar: function(password) {
     var regex = /[!,@,#,$,%,\^,&,*,?,_,~]/;
-    if (regex.test(password)){
+    if (regex.test(password)) {
       return true;
     }
   },
 
-  containsNumber: function(password){
+  containsNumber: function(password) {
     var regex = /[0-9]/;
-    if (regex.test(password)){
+    if (regex.test(password)) {
       return true;
     }
   },
 
-  badPasswords: function(password){
+  containsWeakPatterns: function(password) {
     if (ruleEngine.weakPatterns.test(password)) {
       console.log('pattern match');
       return true;
     }
   },
 
-  emailMatch: function(password){
+  containsEmail: function(password) {
     var emailRegex = /^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$/i;
     if (emailRegex.test(password)) {
       return true;
