@@ -1,7 +1,7 @@
 $.fn.strengthIndicator = function(userOptions) {
   var self = this;
   var defaults = {
-    passingScore: 15
+    passingScore: 40
   };
   var options = {};
   var score = 0;
@@ -20,7 +20,8 @@ $.fn.strengthIndicator = function(userOptions) {
   };
 
   var initView = function() {
-    $('<div class="si-strength-score"></div>').insertAfter(self);
+    $('<div class="si-strength-score"><div class="si-progress"></div></div>').insertAfter(self);
+    $('.si-strength-score').css('width', self.outerWidth());
     updateView();
   };
 
@@ -30,12 +31,21 @@ $.fn.strengthIndicator = function(userOptions) {
   };
 
   var updateView = function() {
-    $('.si-strength-score').html(score);
-    if (score > options.passingScore) {
-      $('.si-strength-score').css('color','#bada55');
-    } else {
-      $('.si-strength-score').css('color', '#000');
+    var progressBarColor = '#969696';
+    if (score >= 25) {
+      progressBarColor = '#DA5555';
     }
+    if (score >= 50) {
+      progressBarColor = '#F7CB4D';
+    }
+    if (score >= 75) {
+      progressBarColor = '#F7F24D';
+    }
+    if (score >= 100) {
+      progressBarColor = '#72D24B';
+    }
+    $('.si-progress').css('width', score + '%');
+    $('.si-progress').css('background', progressBarColor);
   };
 
   this.on('input propertychange', function() {

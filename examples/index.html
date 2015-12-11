@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Password Strength Indicator Example</title>
+  <style type="text/css">
+    .si-strength-score {
+      background: #ddd;
+      height: 5px;
+      position: relative;
+      overflow: hidden;
+    }
+    .si-progress{
+      background: #969696;
+      width: 0%;
+      height: 5px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transition: width 0.2s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <input type="password" class="password" />
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="../dist/strength-indicator.min.js"></script>
+
+  <script type="text/javascript">
+    $( document ).ready(function() {
+      $('.password').strengthIndicator({ passingScore: 100 });
+    });
+  </script>
+</body>
+</html>
