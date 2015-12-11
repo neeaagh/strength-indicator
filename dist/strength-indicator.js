@@ -292,9 +292,10 @@ var insideVerticalBar = {
       progressBarColor = '#72D24B';
     }
 
-    console.log($(this.target).next().children());
-    $(this.target).next().children().slice(highlighted, 4).css('background', '#ddd');
-    $(this.target).next().children().slice(0, highlighted).css('background', progressBarColor);
+    console.log($(this.target).next().children().next().length);
+
+    // $(this.target).next().first().children().slice(highlighted, 4).css('background', '#ddd');
+    // $(this.target).next().first().children().slice(0, highlighted).css('background', progressBarColor);
   }
 };
 }(jQuery));
