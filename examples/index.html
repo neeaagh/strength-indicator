@@ -108,6 +108,13 @@
     </div>
   </div>
 
+  <div>
+    <h1>Basic Text</h1>
+    <div>
+      <input type="password" class="password-text" />
+    </div>
+  </div>
+
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="../dist/strength-indicator.js"></script>
@@ -131,6 +138,11 @@
      $('.password-inner-vertical-bar').strengthIndicator({
         passingScore: 100,
         ui: { theme: 'inside-vertical' }
+      });
+
+     $('.password-text').strengthIndicator({
+        passingScore: 100,
+        ui: { theme: 'inline-text' }
       });
     });
   </script>
