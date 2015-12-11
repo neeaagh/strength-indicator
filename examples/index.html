@@ -3,6 +3,9 @@
 <head>
 	<title>Password Strength Indicator Example</title>
   <style type="text/css">
+    body * {
+      box-sizing: border-box;
+    }
     .si-strength-score {
       background: #ddd;
       height: 5px;
@@ -18,10 +21,36 @@
       top: 0;
       transition: width 0.2s ease-out;
     }
+    input[type="password"] {
+      box-sizing: border-box;
+      width: 200px;
+    }
+    .pass-strength {
+      width: 200px;
+    }
+    .pass-strength div {
+      width: 25%;
+      height: 10px;
+      float: left;
+      border-right: 1px solid white;
+      background: #ddd;
+    }
+    .pass-strength div:last-child {
+      border-right: none;
+    }
   </style>
 </head>
 <body>
   <input type="password" class="password" />
+  <br><br>
+  <input type="password" class="pass">
+  <div class="pass-strength">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="../dist/strength-indicator.min.js"></script>
@@ -29,6 +58,7 @@
   <script type="text/javascript">
     $( document ).ready(function() {
       $('.password').strengthIndicator({ passingScore: 100 });
+      // $('.pass').strengthIndicator();
     });
   </script>
 </body>
