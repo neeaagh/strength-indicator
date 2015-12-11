@@ -1,11 +1,14 @@
 $.fn.strengthIndicator = function(userOptions) {
   var self = this;
   var defaults = {
-    passingScore: 40
+    passingScore: 40,
+    ui: {
+      theme: 'default'
+    }
   };
   var options = {};
   var score = 0;
-  var ui = strengthIndicatorUI;
+  var ui = UIEngine;
 
   var init = function () {
     /* merge default to options */
@@ -15,14 +18,13 @@ $.fn.strengthIndicator = function(userOptions) {
     else {
       options = defaults;
     }
-    console.log(options);
     /* render the view */
-    ui.initView(self);
+    ui.init(self, options.ui.theme);
   };
 
   var getSecurityScore = function(password) {
     score = ruleEngine.getScore(password);
-    ui.updateView(score);
+    ui.update(score);
   };
 
   this.on('input propertychange', function() {
@@ -32,4 +34,3 @@ $.fn.strengthIndicator = function(userOptions) {
   init();
   return this; /* allow jquery chaining */
 };
-

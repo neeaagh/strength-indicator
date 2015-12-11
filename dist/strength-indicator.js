@@ -3,11 +3,14 @@
 $.fn.strengthIndicator = function(userOptions) {
   var self = this;
   var defaults = {
-    passingScore: 40
+    passingScore: 40,
+    ui: {
+      theme: 'default'
+    }
   };
   var options = {};
   var score = 0;
-  var ui = strengthIndicatorUI;
+  var ui = UIEngine;
 
   var init = function () {
     
@@ -17,14 +20,13 @@ $.fn.strengthIndicator = function(userOptions) {
     else {
       options = defaults;
     }
-    console.log(options);
     
-    ui.initView(self);
+    ui.init(self, options.ui.theme);
   };
 
   var getSecurityScore = function(password) {
     score = ruleEngine.getScore(password);
-    ui.updateView(score);
+    ui.update(score);
   };
 
   this.on('input propertychange', function() {
@@ -34,7 +36,6 @@ $.fn.strengthIndicator = function(userOptions) {
   init();
   return this; 
 };
-
 
 var ruleEngine = {
   rules: [
@@ -114,17 +115,65 @@ var ruleEngine = {
 };
 
 
-var strengthIndicatorUI = {
+var UIEngine = {
   target: null,
+  theme: null,
 
-  initView: function(target) {
+  init: function(target, themeName) {
     this.target = target;
-    $('<div class="si-strength-score"><div class="si-progress"></div></div>').insertAfter(target);
-    $('.si-strength-score').css('width', target.outerWidth());
-    this.updateView();
+    this.setThemeClass(themeName);
+    this.theme.init(target);
   },
 
-  updateView: function(score) {
+  setThemeClass: function(themeName) {
+    var themeClass = defaultTheme;
+    if (themeName === 'horizontal-bar') {
+      themeClass = horizontalBarTheme;
+    }
+    this.theme = themeClass;
+  },
+
+  update: function(score) {
+    this.theme.update(score);
+  }
+};
+
+var defaultTheme = {
+  target: null,
+
+  init: function(target) {
+    this.target = target;
+    $('<div class="si-strength-score"><div class="si-progress"></div></div>').insertAfter(target);
+  },
+
+  update: function(score) {
+    var progressBarColor = '#969696';
+    if (score >= 25) {
+      progressBarColor = '#DA5555';
+    }
+    if (score >= 50) {
+      progressBarColor = '#F7CB4D';
+    }
+    if (score >= 75) {
+      progressBarColor = '#F7F24D';
+    }
+    if (score >= 100) {
+      progressBarColor = '#72D24B';
+    }
+    $('.si-progress').css('width', score + '%');
+    $('.si-progress').css('background', progressBarColor);
+  }
+};
+
+var horizontalBarTheme = {
+  target: null,
+
+  init: function(target) {
+    this.target = target;
+    $('<div class="si-strength-score"><div class="si-progress"></div></div>').insertAfter(target);
+  },
+
+  update: function(score) {
     var progressBarColor = '#969696';
     if (score >= 25) {
       progressBarColor = '#DA5555';

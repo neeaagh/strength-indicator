@@ -1,28 +1,22 @@
-var strengthIndicatorUI = {
+var UIEngine = {
   target: null,
+  theme: null,
 
-  initView: function(target) {
+  init: function(target, themeName) {
     this.target = target;
-    $('<div class="si-strength-score"><div class="si-progress"></div></div>').insertAfter(target);
-    $('.si-strength-score').css('width', target.outerWidth());
-    this.updateView();
+    this.setThemeClass(themeName);
+    this.theme.init(target);
   },
 
-  updateView: function(score) {
-    var progressBarColor = '#969696';
-    if (score >= 25) {
-      progressBarColor = '#DA5555';
+  setThemeClass: function(themeName) {
+    var themeClass = defaultTheme;
+    if (themeName === 'horizontal-bar') {
+      themeClass = horizontalBarTheme;
     }
-    if (score >= 50) {
-      progressBarColor = '#F7CB4D';
-    }
-    if (score >= 75) {
-      progressBarColor = '#F7F24D';
-    }
-    if (score >= 100) {
-      progressBarColor = '#72D24B';
-    }
-    $('.si-progress').css('width', score + '%');
-    $('.si-progress').css('background', progressBarColor);
+    this.theme = themeClass;
+  },
+
+  update: function(score) {
+    this.theme.update(score);
   }
 };
