@@ -18,6 +18,7 @@ var RuleEngine = function() {
       if (rule.active === true) {
         var funcStr = rule.handler;
         var func = this[funcStr];
+        console.log(typeof func === "function");
         if (typeof func === "function") {
           if (func(password)) {
             score += rule.score;
