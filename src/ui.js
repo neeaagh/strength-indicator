@@ -19,6 +19,9 @@ var UIEngine = {
     case 'inside-vertical':
       this.theme = insideVerticalBar;
       break;
+    case 'inline-text':
+      this.theme = inlineText;
+      break;
     default:
       this.theme = defaultTheme;
     }

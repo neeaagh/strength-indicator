@@ -6,6 +6,7 @@ var insideHorizontalBar = {
     target.addClass('si-inner-padding');
     target.wrap( "<div class='si-pass-wrap'></div>");
     $('<div class="si-pass-strength si-pass-strength-inside"></div>').insertAfter(target);
+    // TODO: use target handle
     for (var i = 0; i < 4; i++){
       $('.si-pass-strength').append('<div></div>');
     }

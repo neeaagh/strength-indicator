@@ -136,6 +136,9 @@ var UIEngine = {
     case 'inside-vertical':
       this.theme = insideVerticalBar;
       break;
+    case 'inline-text':
+      this.theme = inlineText;
+      break;
     default:
       this.theme = defaultTheme;
     }
@@ -152,8 +155,7 @@ var defaultTheme = {
   init: function(target) {
     this.target = target;
     $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(target);
-    //  TODO: make selector from target chain.
-    $('.si-pass-strength').width(this.target.outerWidth());
+    target.next().width(this.target.outerWidth());
   },
 
   update: function(score) {
@@ -170,9 +172,9 @@ var defaultTheme = {
     if (score >= 100) {
       progressBarColor = '#72D24B';
     }
-    // TODO Use selector from target chain
-    $('.si-progress').css('width', score + '%');
-    $('.si-progress').css('background', progressBarColor);
+
+    $(this.target).next().find('.si-progress').css('width', score + '%');
+    $(this.target).next().find('.si-progress').css('background', progressBarColor);
   }
 };
 
@@ -182,6 +184,7 @@ var horizontalBar = {
   init: function(target) {
     this.target = target;
     $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(target);
+    // TODO: use target handle
     for (var i = 0; i < 4; i++){
       $('.si-pass-strength').append('<div></div>');
     }
@@ -209,9 +212,41 @@ var horizontalBar = {
       progressBarColor = '#72D24B';
     }
 
-    console.log($(this.target).next().children());
     $(this.target).next().children().slice(highlighted, 4).css('background', '#ddd');
     $(this.target).next().children().slice(0, highlighted).css('background', progressBarColor);
+  }
+};
+
+var inlineText = {
+  target: null,
+
+  init: function(target) {
+    this.target = target;
+    $('<div class="si-pass-strength"></div>').insertAfter(target);
+    target.next().width(this.target.outerWidth());
+  },
+
+  update: function(score) {
+    var progressBarColor = '#969696';
+    var description = 'Invalid';
+    if (score >= 25) {
+      progressBarColor = '#DA5555';
+      description = 'Weak';
+    }
+    if (score >= 50) {
+      progressBarColor = '#F7CB4D';
+      description = 'Normal';
+    }
+    if (score >= 75) {
+      progressBarColor = '#F7F24D';
+      description = 'Strong';
+    }
+    if (score >= 100) {
+      progressBarColor = '#72D24B';
+      description = 'Very Strong';
+    }
+    $(this.target).next().html(description);
+    $(this.target).next().css('color', progressBarColor);
   }
 };
 
@@ -223,6 +258,7 @@ var insideHorizontalBar = {
     target.addClass('si-inner-padding');
     target.wrap( "<div class='si-pass-wrap'></div>");
     $('<div class="si-pass-strength si-pass-strength-inside"></div>').insertAfter(target);
+    // TODO: use target handle
     for (var i = 0; i < 4; i++){
       $('.si-pass-strength').append('<div></div>');
     }
