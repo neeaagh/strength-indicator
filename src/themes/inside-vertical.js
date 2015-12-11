@@ -9,8 +9,9 @@ var insideVerticalBar = {
     for (var i = 0; i < 4; i++){
       $('.si-vert-container').append('<div></div>');
     }
-      $('.si-pass-wrap').width(this.target.outerWidth() - 4);
-      $('.si-pass-wrap').height(this.target.outerHeight() - 4);
+    $('.si-pass-wrap').width(this.target.outerWidth() - 4);
+    $('.si-pass-wrap').height(this.target.outerHeight() - 4);
+    return this;
   },
 
   update: function(score) {

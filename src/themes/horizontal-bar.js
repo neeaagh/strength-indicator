@@ -4,11 +4,11 @@ var horizontalBar = {
   init: function(target) {
     this.target = target;
     $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(target);
-    // TODO: use target handle
     for (var i = 0; i < 4; i++){
-      $('.si-pass-strength').append('<div></div>');
+      target.next().append('<div></div>');
     }
-      $('.si-pass-strength').width(this.target.outerWidth());
+    target.next().width(this.target.outerWidth());
+    return this;
   },
 
   update: function(score) {
@@ -32,7 +32,7 @@ var horizontalBar = {
       progressBarColor = '#72D24B';
     }
 
-    $(this.target).next().children().slice(highlighted, 4).css('background', '#ddd');
-    $(this.target).next().children().slice(0, highlighted).css('background', progressBarColor);
+    this.target.next().children().slice(highlighted, 4).css('background', '#ddd');
+    this.target.next().children().slice(0, highlighted).css('background', progressBarColor);
   }
 };

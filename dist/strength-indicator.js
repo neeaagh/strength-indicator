@@ -10,7 +10,7 @@ $.fn.strengthIndicator = function(userOptions) {
   };
   var options = {};
   var score = 0;
-  var ui = UIEngine;
+  var ui = null;
 
   var init = function () {
     
@@ -21,7 +21,7 @@ $.fn.strengthIndicator = function(userOptions) {
       options = defaults;
     }
     
-    ui.init(self, options.ui.theme);
+    ui = new UIEngine(self, options.ui.theme);
   };
 
   var getSecurityScore = function(password) {
@@ -115,38 +115,28 @@ var ruleEngine = {
 };
 
 
-var UIEngine = {
-  target: null,
-  theme: null,
-
-  init: function(target, themeName) {
-    this.target = target;
-    this.setThemeClass(themeName);
-    this.theme.init(target);
-  },
-
-  setThemeClass: function(themeName) {
-    switch(themeName){
+var UIEngine = function(target, themeName) {
+  this.target = target;
+  switch(themeName){
     case 'horizontal-bar':
-      this.theme = horizontalBar;
+      this.theme = horizontalBar.init(this.target);
       break;
     case 'inside-horizontal':
-      this.theme = insideHorizontalBar;
+      this.theme = insideHorizontalBar.init(this.target);
       break;
     case 'inside-vertical':
-      this.theme = insideVerticalBar;
+      this.theme = insideVerticalBar.init(this.target);
       break;
     case 'inline-text':
-      this.theme = inlineText;
+      this.theme = inlineText.init(this.target);
       break;
     default:
-      this.theme = defaultTheme;
-    }
-  },
-
-  update: function(score) {
-    this.theme.update(score);
+      this.theme = defaultTheme.init(this.target);
   }
+
+  this.update = function(score) {
+    this.theme.update(score);
+  };
 };
 
 var defaultTheme = {
@@ -156,6 +146,7 @@ var defaultTheme = {
     this.target = target;
     $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(target);
     target.next().width(this.target.outerWidth());
+    return this;
   },
 
   update: function(score) {
@@ -184,11 +175,11 @@ var horizontalBar = {
   init: function(target) {
     this.target = target;
     $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(target);
-    // TODO: use target handle
     for (var i = 0; i < 4; i++){
-      $('.si-pass-strength').append('<div></div>');
+      target.next().append('<div></div>');
     }
-      $('.si-pass-strength').width(this.target.outerWidth());
+    target.next().width(this.target.outerWidth());
+    return this;
   },
 
   update: function(score) {
@@ -212,8 +203,8 @@ var horizontalBar = {
       progressBarColor = '#72D24B';
     }
 
-    $(this.target).next().children().slice(highlighted, 4).css('background', '#ddd');
-    $(this.target).next().children().slice(0, highlighted).css('background', progressBarColor);
+    this.target.next().children().slice(highlighted, 4).css('background', '#ddd');
+    this.target.next().children().slice(0, highlighted).css('background', progressBarColor);
   }
 };
 
@@ -224,6 +215,7 @@ var inlineText = {
     this.target = target;
     $('<div class="si-pass-strength"></div>').insertAfter(target);
     target.next().width(this.target.outerWidth());
+    return this;
   },
 
   update: function(score) {
@@ -262,7 +254,8 @@ var insideHorizontalBar = {
     for (var i = 0; i < 4; i++){
       $('.si-pass-strength').append('<div></div>');
     }
-      $('.si-pass-strength').width(this.target.outerWidth() - 4);
+    $('.si-pass-strength').width(this.target.outerWidth() - 4);
+    return this;
   },
 
   update: function(score) {
@@ -286,7 +279,6 @@ var insideHorizontalBar = {
       progressBarColor = '#72D24B';
     }
 
-    console.log($(this.target).next().children());
     $(this.target).next().children().slice(highlighted, 4).css('background', '#ddd');
     $(this.target).next().children().slice(0, highlighted).css('background', progressBarColor);
   }
@@ -303,8 +295,9 @@ var insideVerticalBar = {
     for (var i = 0; i < 4; i++){
       $('.si-vert-container').append('<div></div>');
     }
-      $('.si-pass-wrap').width(this.target.outerWidth() - 4);
-      $('.si-pass-wrap').height(this.target.outerHeight() - 4);
+    $('.si-pass-wrap').width(this.target.outerWidth() - 4);
+    $('.si-pass-wrap').height(this.target.outerHeight() - 4);
+    return this;
   },
 
   update: function(score) {

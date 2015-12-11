@@ -10,7 +10,8 @@ var insideHorizontalBar = {
     for (var i = 0; i < 4; i++){
       $('.si-pass-strength').append('<div></div>');
     }
-      $('.si-pass-strength').width(this.target.outerWidth() - 4);
+    $('.si-pass-strength').width(this.target.outerWidth() - 4);
+    return this;
   },
 
   update: function(score) {
@@ -34,7 +35,6 @@ var insideHorizontalBar = {
       progressBarColor = '#72D24B';
     }
 
-    console.log($(this.target).next().children());
     $(this.target).next().children().slice(highlighted, 4).css('background', '#ddd');
     $(this.target).next().children().slice(0, highlighted).css('background', progressBarColor);
   }

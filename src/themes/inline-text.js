@@ -5,6 +5,7 @@ var inlineText = {
     this.target = target;
     $('<div class="si-pass-strength"></div>').insertAfter(target);
     target.next().width(this.target.outerWidth());
+    return this;
   },
 
   update: function(score) {

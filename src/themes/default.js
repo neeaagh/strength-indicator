@@ -5,6 +5,7 @@ var defaultTheme = {
     this.target = target;
     $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(target);
     target.next().width(this.target.outerWidth());
+    return this;
   },
 
   update: function(score) {
