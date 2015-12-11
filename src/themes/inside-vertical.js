@@ -8,10 +8,10 @@ var insideVerticalBar = {
     $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(target);
     // TODO :target reference
     for (var i = 0; i < 4; i++){
-      $('.si-vert-container').append('<div id='+i+'></div>');
+      target.next().find('.si-vert-container').append('<div id='+i+'></div>');
     }
-    $('.si-pass-wrap').width(this.target.outerWidth() - 4);
-    $('.si-pass-wrap').height(this.target.outerHeight() - 4);
+    target.parent().width(this.target.outerWidth() - 4);
+    target.parent().height(this.target.outerHeight() - 4);
     return this;
   },
 
