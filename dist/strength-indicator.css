@@ -1,0 +1,83 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+/*we need everything we use to be border-box*/
+.si-pass-strength * {
+  box-sizing: border-box;
+}
+/*TODO: remove testing input styling*/
+input[type="password"] {
+  width: 200px;
+  padding: 3px 0;
+}
+.si-pass-strength {
+  
+}
+
+/*Default Theme*/
+.si-pass-strength-default {
+  background: #ddd;
+  height: 10px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1px;
+}
+.si-progress{
+  background: #969696;
+  width: 0%;
+  height: 10px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: width 0.2s ease-out;
+}
+
+/*Bars Themes*/
+.si-pass-strength-horibars {
+  margin-top: 1px;
+}
+.si-pass-strength-horibars div,
+.si-pass-strength-inside div {
+  width: 25%;
+  height: 10px;
+  float: left;
+  border-right: 1px solid white;
+  background: #ddd;
+}
+.si-pass-strength-horibars div:last-child,
+.si-pass-strength-inside div:last-child {
+  border-right: none;
+}
+.si-pass-strength-inside-vert div:not(.si-vert-container) {
+  width: 3px;
+  height: 3px;
+  /*border-radius: 100px;*/
+  background: #ddd;
+  margin-bottom: 2px;
+}
+.si-vert-container {
+  width: 4px;
+  position: absolute;
+  top: 2px;
+  right: 0;
+  height: 100%;
+  padding: 1px;
+}
+.si-inner-right-padding {
+  padding-right: 4px;
+}
+.si-pass-wrap {
+  position: relative;
+}
+.si-pass-wrap .si-inner-padding {
+  padding-bottom: 8px;
+}
+.si-pass-strength-inside {
+  margin:auto;
+  position: absolute;
+  bottom:2px;
+  left: 2px;
+}
+.si-pass-strength-inside div {
+  height: 3px;
+}
