@@ -34,6 +34,9 @@ $.fn.strengthIndicator = function(userOptions) {
 
   this.on('input propertychange', function() {
     getSecurityScore(self.val());
+    if (typeof options.onChange === 'function'){
+        options.onChange(self, score);
+      }
   });
 
   init();
