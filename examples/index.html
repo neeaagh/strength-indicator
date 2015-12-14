@@ -13,6 +13,13 @@
   </div>
 
   <div>
+    <h1>Default Theme 2</h1>
+    <div>
+      <input type="password" class="password2" />
+    </div>
+  </div>
+
+  <div>
     <h1>Horizontal Bar</h1>
     <div>
       <input type="password" class="password-horizontal-bar" />
@@ -46,6 +53,10 @@
   <script type="text/javascript">
     $( document ).ready(function() {
       $('.password').strengthIndicator({
+        passingScore: 100
+      });
+
+      $('.password2').strengthIndicator({
         passingScore: 100
       });
 
