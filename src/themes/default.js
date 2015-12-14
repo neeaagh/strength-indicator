@@ -1,4 +1,4 @@
-var defaultTheme = function(target) {
+var DefaultTheme = function(target) {
   this.target = target;
 
   $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(this.target);

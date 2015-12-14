@@ -169,19 +169,22 @@ var UIEngine = function(target, themeName) {
   this.target = target;
   switch(themeName){
     case 'horizontal-bar':
-      this.theme = new horizontalBar(this.target);
+      this.theme = new HorizontalBar(this.target);
       break;
     case 'inside-horizontal':
-      this.theme = new insideHorizontalBar(this.target);
+      this.theme = new InsideHorizontalBar(this.target);
       break;
     case 'inside-vertical':
-      this.theme = new insideVerticalBar(this.target);
+      this.theme = new InsideVerticalBar(this.target);
       break;
     case 'inline-text':
-      this.theme = new inlineText(this.target);
+      this.theme = new InlineText(this.target);
+      break;
+    case 'none':
+      this.theme = new NullTheme();
       break;
     default:
-      this.theme = new defaultTheme(this.target);
+      this.theme = new DefaultTheme(this.target);
   }
 
   this.update = function(score) {
@@ -189,7 +192,7 @@ var UIEngine = function(target, themeName) {
   };
 };
 
-var defaultTheme = function(target) {
+var DefaultTheme = function(target) {
   this.target = target;
 
   $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(this.target);
@@ -216,13 +219,13 @@ var defaultTheme = function(target) {
   };
 };
 
-var horizontalBar = function (target) {
+var HorizontalBar = function (target) {
   this.target = target;
 
   $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(this.target);
   for (var i = 0; i < 4; i++){
     this.target.next().append('<div class="si-default"></div>');
-  };
+  }
   this.target.next().width(this.target.outerWidth());
 
   this.update = function(score){
@@ -251,7 +254,7 @@ var horizontalBar = function (target) {
   };
 };
 
-var inlineText = function(target) {
+var InlineText = function(target) {
   this.target = target;
 
   $('<div class="si-pass-strength"></div>').insertAfter(this.target);
@@ -282,7 +285,7 @@ var inlineText = function(target) {
   };
 };
 
-var insideHorizontalBar = function(target) {
+var InsideHorizontalBar = function(target) {
   this.target = target;
 
   this.target.addClass('si-inner-padding');
@@ -291,7 +294,7 @@ var insideHorizontalBar = function(target) {
 
   for (var i = 0; i < 4; i++){
     this.target.next().append('<div class="si-default"></div>');
-  };
+  }
   this.target.next().width(this.target.outerWidth() - 4);
 
   this.update = function(score) {
@@ -321,7 +324,7 @@ var insideHorizontalBar = function(target) {
   };
 };
 
-var insideVerticalBar = function(target) {
+var InsideVerticalBar = function(target) {
   this.target = target;
 
   this.target.addClass('si-inner-right-padding');
@@ -330,7 +333,7 @@ var insideVerticalBar = function(target) {
 
   for (var i = 0; i < 4; i++){
     this.target.next().find('.si-vert-container').append('<div id='+i+' class="si-default"></div>');
-  };
+  }
   this.target.parent().width(this.target.outerWidth() - 4);
   this.target.parent().height(this.target.outerHeight() - 4);
 
@@ -358,6 +361,13 @@ var insideVerticalBar = function(target) {
     var indicators = this.target.next().children().children();
     indicators.attr('class', 'si-default');
     indicators.slice(highlighted).addClass(progressBarColor);
+  };
+};
+
+var NullTheme = function() {
+
+  this.update = function(score) {
+    return null;
   };
 };
 }(jQuery));

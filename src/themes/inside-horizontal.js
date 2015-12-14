@@ -1,4 +1,4 @@
-var insideHorizontalBar = function(target) {
+var InsideHorizontalBar = function(target) {
   this.target = target;
 
   this.target.addClass('si-inner-padding');
@@ -7,7 +7,7 @@ var insideHorizontalBar = function(target) {
 
   for (var i = 0; i < 4; i++){
     this.target.next().append('<div class="si-default"></div>');
-  };
+  }
   this.target.next().width(this.target.outerWidth() - 4);
 
   this.update = function(score) {

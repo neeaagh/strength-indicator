@@ -1,4 +1,4 @@
-var inlineText = function(target) {
+var InlineText = function(target) {
   this.target = target;
 
   $('<div class="si-pass-strength"></div>').insertAfter(this.target);

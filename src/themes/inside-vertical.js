@@ -1,4 +1,4 @@
-var insideVerticalBar = function(target) {
+var InsideVerticalBar = function(target) {
   this.target = target;
 
   this.target.addClass('si-inner-right-padding');
@@ -7,7 +7,7 @@ var insideVerticalBar = function(target) {
 
   for (var i = 0; i < 4; i++){
     this.target.next().find('.si-vert-container').append('<div id='+i+' class="si-default"></div>');
-  };
+  }
   this.target.parent().width(this.target.outerWidth() - 4);
   this.target.parent().height(this.target.outerHeight() - 4);
 
