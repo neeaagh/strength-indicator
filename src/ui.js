@@ -2,19 +2,22 @@ var UIEngine = function(target, themeName) {
   this.target = target;
   switch(themeName){
     case 'horizontal-bar':
-      this.theme = new horizontalBar(this.target);
+      this.theme = new HorizontalBar(this.target);
       break;
     case 'inside-horizontal':
-      this.theme = new insideHorizontalBar(this.target);
+      this.theme = new InsideHorizontalBar(this.target);
       break;
     case 'inside-vertical':
-      this.theme = new insideVerticalBar(this.target);
+      this.theme = new InsideVerticalBar(this.target);
       break;
     case 'inline-text':
-      this.theme = new inlineText(this.target);
+      this.theme = new InlineText(this.target);
+      break;
+    case 'none':
+      this.theme = new NullTheme();
       break;
     default:
-      this.theme = new defaultTheme(this.target);
+      this.theme = new DefaultTheme(this.target);
   }
 
   this.update = function(score) {

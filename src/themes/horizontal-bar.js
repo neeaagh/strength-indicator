@@ -1,10 +1,10 @@
-var horizontalBar = function (target) {
+var HorizontalBar = function (target) {
   this.target = target;
 
   $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(this.target);
   for (var i = 0; i < 4; i++){
     this.target.next().append('<div class="si-default"></div>');
-  };
+  }
   this.target.next().width(this.target.outerWidth());
 
   this.update = function(score){
