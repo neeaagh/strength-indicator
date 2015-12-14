@@ -5,7 +5,17 @@ var RuleEngine = function(options) {
     this.options = options;
     this.updateScore();
     this.updateActive();
+    this.addRule();
   };
+
+  this.addRule = function() {
+    if ($.isArray(this.options.addRule)){
+      $.each(this.options.addRule, function(idx, newRule){
+        newRule.active = true;
+        self.rules.push(newRule);
+      });
+    }
+  }
 
   this.updateActive = function() {
     if ($.isArray(this.options.updateActive)) {

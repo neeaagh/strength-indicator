@@ -65,7 +65,18 @@
       });
 
       $('.password2').strengthIndicator({
-        passingScore: 100
+        passingScore: 100,
+        addRule: [
+          { name: 'containsMonitor',
+            handler: function (password) {
+              var regex = /DrivenLocal/;
+              if (regex.test(password)) {
+                alert('This is a bad Password');
+                return true;
+              }
+            }, score: -10
+          }
+        ]
       });
 
       $('.password-horizontal-bar').strengthIndicator({
@@ -75,7 +86,7 @@
           { name: 'containsNumber', score: -100 },
         ],
         onLoad: function() {
-          console.log('Loading...');
+          console.log('On Load Callback: Loading...');
         }
       });
 
@@ -86,7 +97,28 @@
 
      $('.password-inner-vertical-bar').strengthIndicator({
         passingScore: 100,
-        ui: { theme: 'inside-vertical' }
+        ui: { theme: 'inside-vertical' },
+        onChange: function (evt, score){
+          console.log(score);
+        },
+        addRule: [
+          { name: 'containsMonitor',
+            handler: function (password) {
+              var regex = /Monitor/;
+              if (regex.test(password)) {
+                return true;
+              }
+            }, score: 5
+          },
+          { name: 'containsComputer',
+            handler: function (password) {
+              var regex = /Computer/;
+              if (regex.test(password)) {
+                return true;
+              }
+            }, score: -20
+          }
+        ]
       });
 
      $('.password-text').strengthIndicator({

@@ -23,7 +23,6 @@ $.fn.strengthIndicator = function(userOptions) {
       options = defaults;
     }
 
-    console.log(options);
     rules = new RuleEngine(options);
     ui = new UIEngine(self, options.ui.theme);
     if (typeof options.onLoad === 'function'){
@@ -54,7 +53,17 @@ var RuleEngine = function(options) {
     this.options = options;
     this.updateScore();
     this.updateActive();
+    this.addRule();
   };
+
+  this.addRule = function() {
+    if ($.isArray(this.options.addRule)){
+      $.each(this.options.addRule, function(idx, newRule){
+        newRule.active = true;
+        self.rules.push(newRule);
+      });
+    }
+  }
 
   this.updateActive = function() {
     if ($.isArray(this.options.updateActive)) {
