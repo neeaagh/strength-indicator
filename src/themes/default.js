@@ -1,14 +1,12 @@
-var defaultTheme = {
-  target: null,
+var defaultTheme = function(target) {
+  this.target = target;
 
-  init: function(target) {
-    this.target = target;
-    $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(target);
-    target.next().width(this.target.outerWidth());
-    return this;
-  },
+  this.init = function() {
+    $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(this.target);
+    this.target.next().width(this.target.outerWidth());
+  };
 
-  update: function(score) {
+  this.update = function(score) {
     var progressBarColor = '#969696';
     if (score >= 25) {
       progressBarColor = '#DA5555';
@@ -23,7 +21,7 @@ var defaultTheme = {
       progressBarColor = '#72D24B';
     }
 
-    $(this.target).next().find('.si-progress').css('width', score + '%');
-    $(this.target).next().find('.si-progress').css('background', progressBarColor);
-  }
+    this.target.next().find('.si-progress').css('width', score + '%');
+    this.target.next().find('.si-progress').css('background', progressBarColor);
+  };
 };

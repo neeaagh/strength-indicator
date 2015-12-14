@@ -118,19 +118,29 @@ var UIEngine = function(target, themeName) {
   this.target = target;
   switch(themeName){
     case 'horizontal-bar':
-      this.theme = horizontalBar.init(this.target);
+    this.theme = new horizontalBar(this.target);
+    this.theme.init();
+      // this.theme = horizontalBar.init(this.target);
       break;
     case 'inside-horizontal':
-      this.theme = insideHorizontalBar.init(this.target);
+    this.theme = new insideHorizontalBar(this.target);
+    this.theme.init();
+      // this.theme = insideHorizontalBar.init(this.target);
       break;
     case 'inside-vertical':
-      this.theme = insideVerticalBar.init(this.target);
+    this.theme = new insideVerticalBar(this.target);
+    this.theme.init();
+      // this.theme = insideVerticalBar.init(this.target);
       break;
     case 'inline-text':
-      this.theme = inlineText.init(this.target);
+    this.theme = new inlineText(this.target);
+    this.theme.init();
+      // this.theme = inlineText.init(this.target);
       break;
     default:
-      this.theme = defaultTheme.init(this.target);
+      this.theme = new defaultTheme(this.target);
+      this.theme.init();
+      // this.theme = defaultTheme.init(this.target);
   }
 
   this.update = function(score) {
@@ -138,17 +148,15 @@ var UIEngine = function(target, themeName) {
   };
 };
 
-var defaultTheme = {
-  target: null,
+var defaultTheme = function(target) {
+  this.target = target;
 
-  init: function(target) {
-    this.target = target;
-    $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(target);
-    target.next().width(this.target.outerWidth());
-    return this;
-  },
+  this.init = function() {
+    $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(this.target);
+    this.target.next().width(this.target.outerWidth());
+  };
 
-  update: function(score) {
+  this.update = function(score) {
     var progressBarColor = '#969696';
     if (score >= 25) {
       progressBarColor = '#DA5555';
@@ -163,25 +171,23 @@ var defaultTheme = {
       progressBarColor = '#72D24B';
     }
 
-    $(this.target).next().find('.si-progress').css('width', score + '%');
-    $(this.target).next().find('.si-progress').css('background', progressBarColor);
-  }
+    this.target.next().find('.si-progress').css('width', score + '%');
+    this.target.next().find('.si-progress').css('background', progressBarColor);
+  };
 };
 
-var horizontalBar = {
-  target: null,
+var horizontalBar = function (target) {
+  this.target = target;
 
-  init: function(target) {
-    this.target = target;
-    $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(target);
+  this.init = function(){
+    $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(this.target);
     for (var i = 0; i < 4; i++){
-      target.next().append('<div></div>');
+      this.target.next().append('<div></div>');
     }
-    target.next().width(this.target.outerWidth());
-    return this;
-  },
+    this.target.next().width(this.target.outerWidth());
+  };
 
-  update: function(score) {
+  this.update = function(score){
     var highlighted = 0;
     var progressBarColor = '#969696';
 
@@ -204,20 +210,20 @@ var horizontalBar = {
 
     this.target.next().children().slice(highlighted, 4).css('background', '#ddd');
     this.target.next().children().slice(0, highlighted).css('background', progressBarColor);
-  }
+  };
+
 };
 
-var inlineText = {
-  target: null,
+var inlineText = function(target) {
+  this.target = target;
 
-  init: function(target) {
+  this.init = function() {
     this.target = target;
-    $('<div class="si-pass-strength"></div>').insertAfter(target);
-    target.next().width(this.target.outerWidth());
-    return this;
+    $('<div class="si-pass-strength"></div>').insertAfter(this.target);
+    this.target.next().width(this.target.outerWidth());
   },
 
-  update: function(score) {
+  this.update = function(score) {
     var progressBarColor = '#969696';
     var description = 'Invalid';
     if (score >= 25) {
@@ -241,10 +247,10 @@ var inlineText = {
   }
 };
 
-var insideHorizontalBar = {
-  target: null,
+var insideHorizontalBar = function(target) {
+  this.target = target;
 
-  init: function(target) {
+  this.init = function() {
     this.target = target;
     target.addClass('si-inner-padding');
     target.wrap( "<div class='si-pass-wrap'></div>");
@@ -254,9 +260,9 @@ var insideHorizontalBar = {
     }
     target.next().width(this.target.outerWidth() - 4);
     return this;
-  },
+  };
 
-  update: function(score) {
+  this.update = function(score) {
     var highlighted = 0;
     var progressBarColor = '#969696';
 
@@ -280,27 +286,25 @@ var insideHorizontalBar = {
     var indicators = this.target.next().children();
     indicators.slice(highlighted, 4).css('background', '#ddd');
     indicators.slice(0, highlighted).css('background', progressBarColor);
-  }
+  };
 };
 
-var insideVerticalBar = {
-  target: null,
+var insideVerticalBar = function(target) {
+  this.target = target;
 
-  init: function(target) {
-    this.target = target;
-    target.addClass('si-inner-right-padding');
-    target.wrap( "<div class='si-pass-wrap'></div>");
-    $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(target);
-    // TODO :target reference
+  this.init = function() {
+    this.target.addClass('si-inner-right-padding');
+    this.target.wrap( "<div class='si-pass-wrap'></div>");
+    $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(this.target);
+
     for (var i = 0; i < 4; i++){
-      target.next().find('.si-vert-container').append('<div id='+i+'></div>');
+      this.target.next().find('.si-vert-container').append('<div id='+i+'></div>');
     }
-    target.parent().width(this.target.outerWidth() - 4);
-    target.parent().height(this.target.outerHeight() - 4);
-    return this;
-  },
+    this.target.parent().width(this.target.outerWidth() - 4);
+    this.target.parent().height(this.target.outerHeight() - 4);
+  };
 
-  update: function(score) {
+  this.update = function(score) {
     var highlighted = 4;
     var progressBarColor = '#969696';
 

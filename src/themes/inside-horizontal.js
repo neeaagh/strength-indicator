@@ -1,7 +1,7 @@
-var insideHorizontalBar = {
-  target: null,
+var insideHorizontalBar = function(target) {
+  this.target = target;
 
-  init: function(target) {
+  this.init = function() {
     this.target = target;
     target.addClass('si-inner-padding');
     target.wrap( "<div class='si-pass-wrap'></div>");
@@ -11,9 +11,9 @@ var insideHorizontalBar = {
     }
     target.next().width(this.target.outerWidth() - 4);
     return this;
-  },
+  };
 
-  update: function(score) {
+  this.update = function(score) {
     var highlighted = 0;
     var progressBarColor = '#969696';
 
@@ -37,5 +37,5 @@ var insideHorizontalBar = {
     var indicators = this.target.next().children();
     indicators.slice(highlighted, 4).css('background', '#ddd');
     indicators.slice(0, highlighted).css('background', progressBarColor);
-  }
+  };
 };
