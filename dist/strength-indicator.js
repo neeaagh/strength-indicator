@@ -6,6 +6,9 @@ $.fn.strengthIndicator = function(userOptions) {
     passingScore: 40,
     ui: {
       theme: 'default'
+    },
+    rules: {
+      power: 1.4
     }
   };
   var options = {};
@@ -22,7 +25,7 @@ $.fn.strengthIndicator = function(userOptions) {
       options = defaults;
     }
 
-    rules = new RuleEngine();
+    rules = new RuleEngine(options.rules);
     ui = new UIEngine(self, options.ui.theme);
     if (typeof options.onLoad === 'function'){
         options.onLoad();
@@ -45,7 +48,9 @@ $.fn.strengthIndicator = function(userOptions) {
   return this; 
 };
 
-var RuleEngine = function() {
+var RuleEngine = function(options) {
+  this.power = options.power;
+  console.log(this.options);
 
   this.getScore = function(password) {
     var score = 0;
@@ -65,7 +70,7 @@ var RuleEngine = function() {
 
   this.lengthPower = function(password, score) {
     var trueLength = password.replace(/(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g, '').length;
-    var power = 1.4;
+    var power = this.power;
     return Math.pow(trueLength + score, power);
   };
 

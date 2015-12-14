@@ -4,6 +4,9 @@ $.fn.strengthIndicator = function(userOptions) {
     passingScore: 40,
     ui: {
       theme: 'default'
+    },
+    rules: {
+      power: 1.4
     }
   };
   var options = {};
@@ -20,7 +23,7 @@ $.fn.strengthIndicator = function(userOptions) {
       options = defaults;
     }
 
-    rules = new RuleEngine();
+    rules = new RuleEngine(options.rules);
     ui = new UIEngine(self, options.ui.theme);
     if (typeof options.onLoad === 'function'){
         options.onLoad();

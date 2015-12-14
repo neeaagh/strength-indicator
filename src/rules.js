@@ -1,4 +1,6 @@
-var RuleEngine = function() {
+var RuleEngine = function(options) {
+  this.power = options.power;
+  console.log(this.options);
 
   this.getScore = function(password) {
     var score = 0;
@@ -18,7 +20,7 @@ var RuleEngine = function() {
 
   this.lengthPower = function(password, score) {
     var trueLength = password.replace(/(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g, '').length;
-    var power = 1.4;
+    var power = this.power;
     return Math.pow(trueLength + score, power);
   };
 
