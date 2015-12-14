@@ -5,21 +5,22 @@ var defaultTheme = function(target) {
   this.target.next().width(this.target.outerWidth());
 
   this.update = function(score) {
-    var progressBarColor = '#969696';
+    var progressBarColor = 'si-invalid';
     if (score >= 25) {
-      progressBarColor = '#DA5555';
+      progressBarColor = 'si-weak';
     }
     if (score >= 50) {
-      progressBarColor = '#F7CB4D';
+      progressBarColor = 'si-normal';
     }
     if (score >= 75) {
-      progressBarColor = '#F7F24D';
+      progressBarColor = 'si-strong';
     }
     if (score >= 100) {
-      progressBarColor = '#72D24B';
+      progressBarColor = 'si-very-strong';
     }
 
     this.target.next().find('.si-progress').css('width', score + '%');
-    this.target.next().find('.si-progress').css('background', progressBarColor);
+    this.target.next().find('.si-progress').attr('class', 'si-progress');
+    this.target.next().find('.si-progress').addClass(progressBarColor);
   };
 };

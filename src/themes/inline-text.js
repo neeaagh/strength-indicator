@@ -5,25 +5,26 @@ var inlineText = function(target) {
   this.target.next().width(this.target.outerWidth());
 
   this.update = function(score) {
-    var progressBarColor = '#969696';
+    var progressBarColor = 'si-text-invalid';
     var description = 'Invalid';
     if (score >= 25) {
-      progressBarColor = '#DA5555';
+      progressBarColor = 'si-text-weak';
       description = 'Weak';
     }
     if (score >= 50) {
-      progressBarColor = '#F7CB4D';
+      progressBarColor = 'si-text-normal';
       description = 'Normal';
     }
     if (score >= 75) {
-      progressBarColor = '#F7F24D';
+      progressBarColor = 'si-text-strong';
       description = 'Strong';
     }
     if (score >= 100) {
-      progressBarColor = '#72D24B';
+      progressBarColor = 'si-text-very-strong';
       description = 'Very Strong';
     }
     this.target.next().html(description);
-    this.target.next().css('color', progressBarColor);
+    this.target.next().attr('class', 'si-text-default');
+    this.target.next().addClass(progressBarColor);
   };
 };

@@ -11,7 +11,7 @@ input[type="password"] {
   padding: 3px 0;
 }
 .si-pass-strength {
-  
+
 }
 
 /*Default Theme*/
@@ -42,7 +42,7 @@ input[type="password"] {
   height: 10px;
   float: left;
   border-right: 1px solid white;
-  background: #ddd;
+  /*background: #ddd;*/
 }
 .si-pass-strength-horibars div:last-child,
 .si-pass-strength-inside div:last-child {
@@ -52,7 +52,7 @@ input[type="password"] {
   width: 3px;
   height: 3px;
   /*border-radius: 100px;*/
-  background: #ddd;
+  /*background: #ddd;*/
   margin-bottom: 2px;
 }
 .si-vert-container {
@@ -80,4 +80,58 @@ input[type="password"] {
 }
 .si-pass-strength-inside div {
   height: 3px;
+}
+
+.si-default {
+  background: #ddd;
+  color: #ddd;
+}
+
+.si-invalid {
+  background: #969696;
+  color: #969696;
+}
+
+.si-weak {
+  background: #DA5555;
+  color: #DA5555;
+}
+
+.si-normal {
+  background: #F7CB4D;
+  color: #F7CB4D;
+}
+
+.si-strong {
+  background: #F7F24D;
+  color: #F7F24D;
+}
+
+.si-very-strong {
+  background: #72D24B;
+  color: #72D24B;
+}
+
+.si-default {
+  color: #ddd;
+}
+
+.si-text-invalid {
+  color: #969696;
+}
+
+.si-text-weak {
+  color: #DA5555;
+}
+
+.si-text-normal {
+  color: #F7CB4D;
+}
+
+.si-text-strong {
+  color: #F7F24D;
+}
+
+.si-text-very-strong {
+  color: #72D24B;
 }

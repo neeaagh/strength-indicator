@@ -6,34 +6,34 @@ var insideVerticalBar = function(target) {
   $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(this.target);
 
   for (var i = 0; i < 4; i++){
-    this.target.next().find('.si-vert-container').append('<div id='+i+'></div>');
+    this.target.next().find('.si-vert-container').append('<div id='+i+' class="si-default"></div>');
   };
   this.target.parent().width(this.target.outerWidth() - 4);
   this.target.parent().height(this.target.outerHeight() - 4);
 
   this.update = function(score) {
     var highlighted = 4;
-    var progressBarColor = '#969696';
+    var progressBarColor = 'si-invalid';
 
     if (score >= 25) {
       highlighted = 3;
-      progressBarColor = '#DA5555';
+      progressBarColor = 'si-weak';
     }
     if (score >= 50) {
       highlighted = 2;
-      progressBarColor = '#F7CB4D';
+      progressBarColor = 'si-normal';
     }
     if (score >= 75) {
       highlighted = 1;
-      progressBarColor = '#F7F24D';
+      progressBarColor = 'si-strong';
     }
     if (score >= 100) {
       highlighted = 0;
-      progressBarColor = '#72D24B';
+      progressBarColor = 'si-very-strong';
     }
 
     var indicators = this.target.next().children().children();
-    indicators.slice(0, highlighted).css('background', '#ddd');
-    indicators.slice(highlighted).css('background', progressBarColor);
+    indicators.attr('class', 'si-default');
+    indicators.slice(highlighted).addClass(progressBarColor);
   };
 };
