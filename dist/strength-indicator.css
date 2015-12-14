@@ -51,7 +51,7 @@ input[type="password"] {
 .si-pass-strength-inside-vert div:not(.si-vert-container) {
   width: 3px;
   height: 3px;
-  /*border-radius: 100px;*/
+  border-radius: 100px;
   /*background: #ddd;*/
   margin-bottom: 2px;
 }
