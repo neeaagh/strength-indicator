@@ -62,7 +62,18 @@
 
       $('.password-horizontal-bar').strengthIndicator({
         passingScore: 100,
-        ui: { theme: 'horizontal-bar' }
+        ui: { theme: 'horizontal-bar' },
+        onLoad: function(){
+          function getRandomColor() {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+              color += letters[Math.round(Math.random() * 15)];
+            }
+            return color;
+          }
+          $('body').css('background', getRandomColor);
+        }
       });
 
       $('.password-inner-horizontal-bar').strengthIndicator({

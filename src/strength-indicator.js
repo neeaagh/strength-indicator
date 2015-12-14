@@ -22,6 +22,9 @@ $.fn.strengthIndicator = function(userOptions) {
 
     rules = new RuleEngine();
     ui = new UIEngine(self, options.ui.theme);
+    if (typeof options.onLoad === 'function'){
+        options.onLoad();
+      }
   };
 
   var getSecurityScore = function(password) {
