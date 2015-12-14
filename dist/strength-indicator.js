@@ -242,8 +242,8 @@ var inlineText = function(target) {
       progressBarColor = '#72D24B';
       description = 'Very Strong';
     }
-    $(this.target).next().html(description);
-    $(this.target).next().css('color', progressBarColor);
+    this.target.next().html(description);
+    this.target.next().css('color', progressBarColor);
   }
 };
 
