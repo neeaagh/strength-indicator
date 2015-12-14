@@ -1,10 +1,8 @@
 var defaultTheme = function(target) {
   this.target = target;
 
-  this.init = function() {
-    $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(this.target);
-    this.target.next().width(this.target.outerWidth());
-  };
+  $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(this.target);
+  this.target.next().width(this.target.outerWidth());
 
   this.update = function(score) {
     var progressBarColor = '#969696';

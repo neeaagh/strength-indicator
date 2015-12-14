@@ -1,11 +1,8 @@
 var inlineText = function(target) {
   this.target = target;
 
-  this.init = function() {
-    this.target = target;
-    $('<div class="si-pass-strength"></div>').insertAfter(this.target);
-    this.target.next().width(this.target.outerWidth());
-  },
+  $('<div class="si-pass-strength"></div>').insertAfter(this.target);
+  this.target.next().width(this.target.outerWidth());
 
   this.update = function(score) {
     var progressBarColor = '#969696';
@@ -28,5 +25,5 @@ var inlineText = function(target) {
     }
     this.target.next().html(description);
     this.target.next().css('color', progressBarColor);
-  }
+  };
 };

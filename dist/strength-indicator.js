@@ -118,29 +118,19 @@ var UIEngine = function(target, themeName) {
   this.target = target;
   switch(themeName){
     case 'horizontal-bar':
-    this.theme = new horizontalBar(this.target);
-    this.theme.init();
-      // this.theme = horizontalBar.init(this.target);
+      this.theme = new horizontalBar(this.target);
       break;
     case 'inside-horizontal':
-    this.theme = new insideHorizontalBar(this.target);
-    this.theme.init();
-      // this.theme = insideHorizontalBar.init(this.target);
+      this.theme = new insideHorizontalBar(this.target);
       break;
     case 'inside-vertical':
-    this.theme = new insideVerticalBar(this.target);
-    this.theme.init();
-      // this.theme = insideVerticalBar.init(this.target);
+      this.theme = new insideVerticalBar(this.target);
       break;
     case 'inline-text':
-    this.theme = new inlineText(this.target);
-    this.theme.init();
-      // this.theme = inlineText.init(this.target);
+      this.theme = new inlineText(this.target);
       break;
     default:
       this.theme = new defaultTheme(this.target);
-      this.theme.init();
-      // this.theme = defaultTheme.init(this.target);
   }
 
   this.update = function(score) {
@@ -151,10 +141,8 @@ var UIEngine = function(target, themeName) {
 var defaultTheme = function(target) {
   this.target = target;
 
-  this.init = function() {
-    $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(this.target);
-    this.target.next().width(this.target.outerWidth());
-  };
+  $('<div class="si-pass-strength si-pass-strength-default"><div class="si-progress"></div></div>').insertAfter(this.target);
+  this.target.next().width(this.target.outerWidth());
 
   this.update = function(score) {
     var progressBarColor = '#969696';
@@ -179,13 +167,11 @@ var defaultTheme = function(target) {
 var horizontalBar = function (target) {
   this.target = target;
 
-  this.init = function(){
-    $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(this.target);
-    for (var i = 0; i < 4; i++){
-      this.target.next().append('<div></div>');
-    }
-    this.target.next().width(this.target.outerWidth());
+  $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(this.target);
+  for (var i = 0; i < 4; i++){
+    this.target.next().append('<div></div>');
   };
+  this.target.next().width(this.target.outerWidth());
 
   this.update = function(score){
     var highlighted = 0;
@@ -211,17 +197,13 @@ var horizontalBar = function (target) {
     this.target.next().children().slice(highlighted, 4).css('background', '#ddd');
     this.target.next().children().slice(0, highlighted).css('background', progressBarColor);
   };
-
 };
 
 var inlineText = function(target) {
   this.target = target;
 
-  this.init = function() {
-    this.target = target;
-    $('<div class="si-pass-strength"></div>').insertAfter(this.target);
-    this.target.next().width(this.target.outerWidth());
-  },
+  $('<div class="si-pass-strength"></div>').insertAfter(this.target);
+  this.target.next().width(this.target.outerWidth());
 
   this.update = function(score) {
     var progressBarColor = '#969696';
@@ -244,23 +226,20 @@ var inlineText = function(target) {
     }
     this.target.next().html(description);
     this.target.next().css('color', progressBarColor);
-  }
+  };
 };
 
 var insideHorizontalBar = function(target) {
   this.target = target;
 
-  this.init = function() {
-    this.target = target;
-    target.addClass('si-inner-padding');
-    target.wrap( "<div class='si-pass-wrap'></div>");
-    $('<div class="si-pass-strength si-pass-strength-inside"></div>').insertAfter(target);
-    for (var i = 0; i < 4; i++){
-      target.next().append('<div></div>');
-    }
-    target.next().width(this.target.outerWidth() - 4);
-    return this;
+  this.target.addClass('si-inner-padding');
+  this.target.wrap( "<div class='si-pass-wrap'></div>");
+  $('<div class="si-pass-strength si-pass-strength-inside"></div>').insertAfter(this.target);
+
+  for (var i = 0; i < 4; i++){
+    this.target.next().append('<div></div>');
   };
+  this.target.next().width(this.target.outerWidth() - 4);
 
   this.update = function(score) {
     var highlighted = 0;
@@ -292,17 +271,15 @@ var insideHorizontalBar = function(target) {
 var insideVerticalBar = function(target) {
   this.target = target;
 
-  this.init = function() {
-    this.target.addClass('si-inner-right-padding');
-    this.target.wrap( "<div class='si-pass-wrap'></div>");
-    $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(this.target);
+  this.target.addClass('si-inner-right-padding');
+  this.target.wrap( "<div class='si-pass-wrap'></div>");
+  $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(this.target);
 
-    for (var i = 0; i < 4; i++){
-      this.target.next().find('.si-vert-container').append('<div id='+i+'></div>');
-    }
-    this.target.parent().width(this.target.outerWidth() - 4);
-    this.target.parent().height(this.target.outerHeight() - 4);
+  for (var i = 0; i < 4; i++){
+    this.target.next().find('.si-vert-container').append('<div id='+i+'></div>');
   };
+  this.target.parent().width(this.target.outerWidth() - 4);
+  this.target.parent().height(this.target.outerHeight() - 4);
 
   this.update = function(score) {
     var highlighted = 4;
@@ -328,6 +305,6 @@ var insideVerticalBar = function(target) {
     var indicators = this.target.next().children().children();
     indicators.slice(0, highlighted).css('background', '#ddd');
     indicators.slice(highlighted).css('background', progressBarColor);
-  }
+  };
 };
 }(jQuery));

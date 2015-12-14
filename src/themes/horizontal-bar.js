@@ -1,13 +1,11 @@
 var horizontalBar = function (target) {
   this.target = target;
 
-  this.init = function(){
-    $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(this.target);
-    for (var i = 0; i < 4; i++){
-      this.target.next().append('<div></div>');
-    }
-    this.target.next().width(this.target.outerWidth());
+  $('<div class="si-pass-strength si-pass-strength-horibars"></div>').insertAfter(this.target);
+  for (var i = 0; i < 4; i++){
+    this.target.next().append('<div></div>');
   };
+  this.target.next().width(this.target.outerWidth());
 
   this.update = function(score){
     var highlighted = 0;
@@ -33,5 +31,4 @@ var horizontalBar = function (target) {
     this.target.next().children().slice(highlighted, 4).css('background', '#ddd');
     this.target.next().children().slice(0, highlighted).css('background', progressBarColor);
   };
-
 };

@@ -1,17 +1,14 @@
 var insideHorizontalBar = function(target) {
   this.target = target;
 
-  this.init = function() {
-    this.target = target;
-    target.addClass('si-inner-padding');
-    target.wrap( "<div class='si-pass-wrap'></div>");
-    $('<div class="si-pass-strength si-pass-strength-inside"></div>').insertAfter(target);
-    for (var i = 0; i < 4; i++){
-      target.next().append('<div></div>');
-    }
-    target.next().width(this.target.outerWidth() - 4);
-    return this;
+  this.target.addClass('si-inner-padding');
+  this.target.wrap( "<div class='si-pass-wrap'></div>");
+  $('<div class="si-pass-strength si-pass-strength-inside"></div>').insertAfter(this.target);
+
+  for (var i = 0; i < 4; i++){
+    this.target.next().append('<div></div>');
   };
+  this.target.next().width(this.target.outerWidth() - 4);
 
   this.update = function(score) {
     var highlighted = 0;

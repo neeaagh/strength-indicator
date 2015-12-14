@@ -1,17 +1,15 @@
 var insideVerticalBar = function(target) {
   this.target = target;
 
-  this.init = function() {
-    this.target.addClass('si-inner-right-padding');
-    this.target.wrap( "<div class='si-pass-wrap'></div>");
-    $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(this.target);
+  this.target.addClass('si-inner-right-padding');
+  this.target.wrap( "<div class='si-pass-wrap'></div>");
+  $('<div class="si-pass-strength si-pass-strength-inside-vert"><div class="si-vert-container"></div></div>').insertAfter(this.target);
 
-    for (var i = 0; i < 4; i++){
-      this.target.next().find('.si-vert-container').append('<div id='+i+'></div>');
-    }
-    this.target.parent().width(this.target.outerWidth() - 4);
-    this.target.parent().height(this.target.outerHeight() - 4);
+  for (var i = 0; i < 4; i++){
+    this.target.next().find('.si-vert-container').append('<div id='+i+'></div>');
   };
+  this.target.parent().width(this.target.outerWidth() - 4);
+  this.target.parent().height(this.target.outerHeight() - 4);
 
   this.update = function(score) {
     var highlighted = 4;
@@ -37,5 +35,5 @@ var insideVerticalBar = function(target) {
     var indicators = this.target.next().children().children();
     indicators.slice(0, highlighted).css('background', '#ddd');
     indicators.slice(highlighted).css('background', progressBarColor);
-  }
+  };
 };
