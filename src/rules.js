@@ -64,6 +64,17 @@ var RuleEngine = function(options) {
     }
   };
 
+  this.activeStatus = function(ruleSet) {
+    $.each(ruleSet, function(index, arg) {
+      $.each(this.rules, function(idx, rule) {
+        if (typeof arg.status !== 'boolean') { return; }
+        if ('this.' + arg.ruleName == rule.handler.toString){
+          rule.active = arg.status;
+        }
+      });
+    });
+  };
+
   this.rules = [
     { handler: this.minLength, score: 10, active: true },
     { handler: this.containsCaps, score: 2, active: true },
