@@ -1,6 +1,35 @@
 var RuleEngine = function(options) {
-  this.power = options.power;
-  console.log(this.options);
+  var self = this;
+
+  this.init = function() {
+    this.options = options;
+    this.updateScore();
+    this.updateActive();
+  };
+
+  this.updateActive = function() {
+    if ($.isArray(this.options.updateActive)) {
+      $.each(this.options.updateActive, function(idx, updatedRule) {
+        $.each(self.rules, function(index, defaultRule) {
+          if (defaultRule.name === updatedRule.name) {
+            defaultRule.active = updatedRule.active;
+          }
+        });
+      });
+    }
+  };
+
+  this.updateScore = function() {
+    if ($.isArray(this.options.updateScore)) {
+      $.each(this.options.updateScore, function(idx, updatedRule) {
+        $.each(self.rules, function(index, defaultRule) {
+          if (defaultRule.name === updatedRule.name) {
+            defaultRule.score = updatedRule.score;
+          }
+        });
+      });
+    }
+  };
 
   this.getScore = function(password) {
     var score = 0;
@@ -20,7 +49,7 @@ var RuleEngine = function(options) {
 
   this.lengthPower = function(password, score) {
     var trueLength = password.replace(/(123456)|(12345678)|(password)|(abc123)|(abcdefg)|(qwerty)|(zxcvb)|(admin)/g, '').length;
-    var power = this.power;
+    var power = this.options.power;
     return Math.pow(trueLength + score, power);
   };
 
@@ -64,24 +93,16 @@ var RuleEngine = function(options) {
     }
   };
 
-  this.activeStatus = function(ruleSet) {
-    $.each(ruleSet, function(index, arg) {
-      $.each(this.rules, function(idx, rule) {
-        if (typeof arg.status !== 'boolean') { return; }
-        if ('this.' + arg.ruleName == rule.handler.toString){
-          rule.active = arg.status;
-        }
-      });
-    });
-  };
-
   this.rules = [
-    { handler: this.minLength, score: 10, active: true },
-    { handler: this.containsCaps, score: 2, active: true },
-    { handler: this.containsWeakPatterns, score: -5, active: true },
-    { handler: this.containsEmail, score: -3, active: true },
-    { handler: this.containsNumber, score: 3.5, active: true },
-    { handler: this.containsSpecialChar, score: 3.5, active: true }
+    { handler: this.minLength, name: 'minLength', score: 10, active: true },
+    { handler: this.containsCaps, name: 'containsCaps', score: 2, active: true },
+    { handler: this.containsWeakPatterns, name: 'containsWeakPatterns', score: -5, active: true },
+    { handler: this.containsEmail, name: 'containsEmail', score: -3, active: true },
+    { handler: this.containsNumber, name: 'containsNumber', score: 3.5, active: true },
+    { handler: this.containsSpecialChar, name: 'containsSpecialChar', score: 3.5, active: true }
   ];
+
+
+  this.init();
 };
 

@@ -54,12 +54,15 @@
     $( document ).ready(function() {
       $('.password').strengthIndicator({
         passingScore: 100,
-        rules: {
-          power: 0.5
-        }
+        updateActive: [
+          { name: 'containsEmail', active: false },
+          { name: 'containsNumber', active: false },
+          { name: 'minLength', active: false },
+        ],
+        updateScore: [
+          { name: 'containsCaps', score: 60 },
+        ]
       });
-
-      $(.password).strengthIndicator('activeStatus', 'containNumbers', false);
 
       $('.password2').strengthIndicator({
         passingScore: 100
@@ -68,6 +71,9 @@
       $('.password-horizontal-bar').strengthIndicator({
         passingScore: 100,
         ui: { theme: 'horizontal-bar' },
+        updateScore: [
+          { name: 'containsNumber', score: -100 },
+        ],
         onLoad: function() {
           console.log('Loading...');
         }
