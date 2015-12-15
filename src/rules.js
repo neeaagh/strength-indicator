@@ -6,6 +6,7 @@ var RuleEngine = function(options) {
     this.updateScore();
     this.updateActive();
     this.addRule();
+    this.passingScore = this.options.passingScore;
   };
 
   this.addRule = function() {
@@ -41,6 +42,10 @@ var RuleEngine = function(options) {
     }
   };
 
+  this.percentageScore = function(password) {
+    return (this.getScore(password) / this.passingScore) * 100;
+  };
+
   this.getScore = function(password) {
     var score = 0;
 
@@ -50,6 +55,7 @@ var RuleEngine = function(options) {
         if (typeof rule.handler === "function") {
           if (rule.handler(password)) {
             score += rule.score;
+            if (score < 0) { score = 0; }
           }
         }
       }

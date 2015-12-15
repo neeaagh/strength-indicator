@@ -29,7 +29,7 @@ $.fn.strengthIndicator = function(userOptions) {
   };
 
   var getSecurityScore = function(password) {
-    score = rules.getScore(password);
+    score = rules.percentageScore(password);
     ui.update(score);
   };
 
