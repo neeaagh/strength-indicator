@@ -5,14 +5,6 @@ body {
 .si-pass-strength * {
   box-sizing: border-box;
 }
-/*TODO: remove testing input styling*/
-input[type="password"] {
-  width: 200px;
-  padding: 3px 0;
-}
-.si-pass-strength {
-
-}
 
 /*Default Theme*/
 .si-pass-strength-default {
