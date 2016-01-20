@@ -24,7 +24,7 @@ $.fn.strengthIndicator = function(userOptions) {
     rules = new RuleEngine(options);
     ui = new UIEngine(self, options.ui.theme);
     if (typeof options.onLoad === 'function'){
-        options.onLoad();
+        options.onLoad(self);
       }
   };
 

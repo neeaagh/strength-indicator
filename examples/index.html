@@ -96,7 +96,8 @@
         updateScore: [
           { name: 'containsNumber', score: -7 },
         ],
-        onLoad: function() {
+        onLoad: function(self) {
+          console.log(self);
           console.log('On Load Callback: Loading...');
         }
       });
