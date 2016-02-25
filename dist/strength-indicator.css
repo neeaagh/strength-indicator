@@ -1,6 +1,3 @@
-body {
-    font-family: Helvetica, Arial, sans-serif;
-}
 /*we need everything we use to be border-box*/
 .si-pass-strength * {
   box-sizing: border-box;
